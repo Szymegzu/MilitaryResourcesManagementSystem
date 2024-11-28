@@ -2,7 +2,7 @@
 
 namespace MilitaryResourcesManagementSystem.API.Models.DTO
 {
-    public class SoldierDTO
+    public class SoldierGetDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -11,6 +11,6 @@ namespace MilitaryResourcesManagementSystem.API.Models.DTO
         public int Age { get; set; }
         public string Rank { get; set; }
         public int UnitId { get; set; }
-        public string UnitName { get; set; }
+
     }
 }

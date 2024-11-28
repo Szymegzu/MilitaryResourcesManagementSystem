@@ -8,9 +8,14 @@ namespace MilitaryResourcesManagementSystem.API.Mapping
     {
         public AutoMapperProfile()
         {
-            CreateMap<Soldier, SoldierDTO>().ReverseMap();
+            CreateMap<Soldier, SoldierDTO>()
+                .ForMember(x => x.UnitName, opt => opt.MapFrom(x => x.Unit.Name))
+                .ReverseMap();
+            CreateMap<Soldier, SoldierGetDTO>().ReverseMap();
             CreateMap<Soldier, AddSoldierRequestDto>().ReverseMap();
+            CreateMap<Soldier, ChangeSoldierUnitDTO>().ReverseMap();
             CreateMap<Unit, UnitDTO>().ReverseMap();
+            CreateMap<Unit, UnitGetDTO>().ReverseMap();
             CreateMap<Unit, AddUnitRequestDto>().ReverseMap();
 
         }

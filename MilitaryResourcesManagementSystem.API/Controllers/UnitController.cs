@@ -27,7 +27,7 @@ namespace MilitaryResourcesManagementSystem.API.Controllers
 
             unitDomainModel = await unitRepository.CreateUnitAsync(unitDomainModel);
 
-            return Ok(unitMapper.Map<Unit>(unitDomainModel));
+            return Ok(unitMapper.Map<UnitGetDTO>(unitDomainModel));
         }
 
         [HttpGet]
@@ -35,21 +35,21 @@ namespace MilitaryResourcesManagementSystem.API.Controllers
         {
             var unitsDomainModel = await unitRepository.GetAllUnitsAsync();
 
-            return Ok(unitMapper.Map<List<UnitDTO>>(unitsDomainModel));
+            return Ok(unitMapper.Map<List<UnitGetDTO>>(unitsDomainModel));
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetAllUnitSoldiers([FromRoute] int id)
         {
-            var unitDomainModel = await unitRepository.GetAllSoldiersFromUnitAsync(id);
+            var soldiersDomainModel = await unitRepository.GetAllSoldiersFromUnitAsync(id);
 
-            if (unitDomainModel == null)
+            if (soldiersDomainModel == null)
             {
                 return NotFound();
             }
 
-            return Ok(unitMapper.Map<List<UnitDTO>>(unitDomainModel));
+            return Ok(unitMapper.Map<List<SoldierGetDTO>>(soldiersDomainModel));
         }
     }
 }

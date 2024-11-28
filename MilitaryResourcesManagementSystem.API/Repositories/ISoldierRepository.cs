@@ -7,6 +7,7 @@ namespace MilitaryResourcesManagementSystem.API.Repositories
         Task<Soldier?> GetSoldierByIdAsync(Guid id);
         Task<Soldier> CreateSoldierAsync(Soldier soldier);
         Task<List<Soldier>> GetAllSoldiersAsync();
+        Task<Soldier> ChangeSoldierUnitAsync(Soldier soldier,Guid id);
 
     }
 }

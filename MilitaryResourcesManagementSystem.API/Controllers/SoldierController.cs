@@ -27,6 +27,22 @@ namespace MilitaryResourcesManagementSystem.API.Controllers
 
             return Ok(soldierMapper.Map<List<SoldierDTO>>(soldierDomain));
         }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetSoldierById([FromRoute] Guid id)
+        {
+            var soldierDomainModel = await soldierRepository.GetSoldierByIdAsync(id);
+
+            if (soldierDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(soldierMapper.Map<SoldierDTO>(soldierDomainModel));
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateSoldier([FromBody] AddSoldierRequestDto addSoldier)
         {
@@ -36,6 +52,23 @@ namespace MilitaryResourcesManagementSystem.API.Controllers
 
             return Ok(soldierMapper.Map<SoldierDTO>(soldierDomainModel));
         }
-        
+
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> ChangeSoldierUnit([FromBody] ChangeSoldierUnitDTO changeSoldierUnit, [FromRoute] Guid id)
+        {
+            var soldierDomainModel = soldierMapper.Map<Soldier>(changeSoldierUnit);
+
+            soldierDomainModel = await soldierRepository.ChangeSoldierUnitAsync(soldierDomainModel, id);
+
+            if (soldierDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(soldierMapper.Map<SoldierGetDTO>(soldierDomainModel));
+        }
+
+
     }
 }

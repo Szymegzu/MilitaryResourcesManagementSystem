@@ -1,4 +1,6 @@
-﻿namespace MilitaryResourcesManagementSystem.API.Models.Domain
+﻿using MilitaryResourcesManagementSystem.API.Models.DTO;
+
+namespace MilitaryResourcesManagementSystem.API.Models.Domain
 {
     public class Soldier
     {

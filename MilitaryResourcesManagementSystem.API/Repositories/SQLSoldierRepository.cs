@@ -12,6 +12,24 @@ namespace MilitaryResourcesManagementSystem.API.Repositories
         {
             this.dbContext=dbContext;
         }
+
+        public async Task<Soldier> ChangeSoldierUnitAsync(Soldier soldier, Guid id)
+        {
+            var existingSoldier = await dbContext.Soldiers.Include(s => s.Unit).FirstOrDefaultAsync(x => x.Id == id);
+
+            if (existingSoldier == null)
+            {
+                return null;
+            }
+
+            existingSoldier.UnitId = soldier.UnitId;
+
+            await dbContext.SaveChangesAsync();
+
+            return existingSoldier;
+
+        }
+
         public async Task<Soldier> CreateSoldierAsync(Soldier soldier)
         {
             await dbContext.Soldiers.AddAsync(soldier);
@@ -23,12 +41,13 @@ namespace MilitaryResourcesManagementSystem.API.Repositories
 
         public async Task<List<Soldier>> GetAllSoldiersAsync()
         {
-            return await dbContext.Soldiers.Include("Unit").ToListAsync();
+
+            return await dbContext.Soldiers.Include(s => s.Unit).ToListAsync();
         }
 
-        public Task<Soldier?> GetSoldierByIdAsync(Guid id)
+        public async Task<Soldier?> GetSoldierByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Soldiers.Include(s => s.Unit).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

@@ -22,16 +22,9 @@ namespace MilitaryResourcesManagementSystem.API.Repositories
             return unit;
         }
 
-        public async Task<List<Unit>> GetAllSoldiersFromUnitAsync(int id)
+        public async Task<List<Soldier>> GetAllSoldiersFromUnitAsync(int id)
         {
-            var checkId = await dbContext.Units.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (checkId == null)
-            {
-                return null;
-            }
-
-            return await dbContext.Units.Where(x => x.Id == id)..ToListAsync();
+            return await dbContext.Units.Include(u => u.Soldiers).Where(u => u.Id == id).SelectMany(u => u.Soldiers).ToListAsync();
         }
 
         public async Task<List<Unit>> GetAllUnitsAsync()

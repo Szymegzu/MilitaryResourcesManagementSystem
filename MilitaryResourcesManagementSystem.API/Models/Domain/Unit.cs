@@ -7,6 +7,6 @@
         public DateOnly CreateDate { get; set; }
         public string Localization { get; set; }
 
-        public Soldier Soldiers { get; set; }
+        public List<Soldier> Soldiers { get; set; }
     }
 }
